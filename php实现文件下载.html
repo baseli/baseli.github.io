@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="php下载文件最近在项目中需要从指定的目录中下载指定的文件，发现不太会，在百度之后发现基本上的做法都是如下的代码$file = fopen($filename, &quot;r&quot;);header(&quot;Content-type: application/octet-stream&quot;);    header(&quot;Accept-Ranges: bytes&quot;);header(&quot;Accept-Length: &quot; . fil">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php实现文件下载">
+<meta property="og:url" content="http://blog.51liwd.cc/php实现文件下载.html">
+<meta property="og:site_name" content="liwd 自留地">
+<meta property="og:description" content="php下载文件最近在项目中需要从指定的目录中下载指定的文件，发现不太会，在百度之后发现基本上的做法都是如下的代码$file = fopen($filename, &quot;r&quot;);header(&quot;Content-type: application/octet-stream&quot;);    header(&quot;Accept-Ranges: bytes&quot;);header(&quot;Accept-Length: &quot; . fil">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-02T14:40:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php实现文件下载">
+<meta name="twitter:description" content="php下载文件最近在项目中需要从指定的目录中下载指定的文件，发现不太会，在百度之后发现基本上的做法都是如下的代码$file = fopen($filename, &quot;r&quot;);header(&quot;Content-type: application/octet-stream&quot;);    header(&quot;Accept-Ranges: bytes&quot;);header(&quot;Accept-Length: &quot; . fil">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>php实现文件下载</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+      </ul>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        php实现文件下载
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">liwd</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished">2015 十一月 19</time>
+    </div>
+
+
+      <span class="view-times">
+        阅读：<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/PHP/">PHP</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="php下载文件"><a href="#php下载文件" class="headerlink" title="php下载文件"></a>php下载文件</h3><p>最近在项目中需要从指定的目录中下载指定的文件，发现不太会，在百度之后发现基本上的做法都是如下的代码<br><figure class="highlight php"><table><tr><td class="code"><pre><div class="line">$file = fopen($filename, <span class="string">"r"</span>);</div><div class="line"></div><div class="line">header(<span class="string">"Content-type: application/octet-stream"</span>);    </div><div class="line">header(<span class="string">"Accept-Ranges: bytes"</span>);</div><div class="line">header(<span class="string">"Accept-Length: "</span> . filesize($filename));    </div><div class="line">header(<span class="string">"Content-Disposition: attachment; filename="</span> . $downloadfilename);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> fread($file, filesize($filename));</div><div class="line">fclose($file);</div><div class="line"><span class="keyword">exit</span>();</div></pre></td></tr></table></figure></p>
+<p>如上的代码就可以实现文件的下载</p>
+<h3 id="不刷新下载"><a href="#不刷新下载" class="headerlink" title="不刷新下载"></a>不刷新下载</h3><p>由于在项目中在下载的时候进行权限认证，还要用ajax完成认证，并且要保证在不弹出窗口的情况下完成文件的下载，所以就想了下，不弹出窗口完成文件下载，就是需要一个隐藏的<code>ifram</code>然后去指定这个<code>ifram</code>的<code>src</code>属性，就可以完成了.<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> requestUrl = <span class="string">'/download/download?id='</span> + id;</div><div class="line"><span class="keyword">var</span> download = $(<span class="string">"#download"</span>);</div><div class="line"></div><div class="line">download.attr(<span class="string">"src"</span>, requestUrl);</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"download"</span> <span class="attr">style</span>=<span class="string">"display: none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#php下载文件"><span class="toc-number">1.</span> <span class="toc-text">php下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不刷新下载"><span class="toc-number">2.</span> <span class="toc-text">不刷新下载</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/php实现文件下载.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/php实现文件下载.html&text=php实现文件下载"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/php实现文件下载.html&title=php实现文件下载"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/php实现文件下载.html&is_video=false&description=php实现文件下载"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=php实现文件下载&body=Check out this article: http://blog.51liwd.cc/php实现文件下载.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/php实现文件下载.html&title=php实现文件下载"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/php实现文件下载.html&title=php实现文件下载"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/php实现文件下载.html&title=php实现文件下载"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/php实现文件下载.html&title=php实现文件下载"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/php实现文件下载.html&name=php实现文件下载&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Powered by liwd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="http://github.com/baseli">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+

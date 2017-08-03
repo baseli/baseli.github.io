@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP中类加载">
+<meta property="og:url" content="http://blog.51liwd.cc/PHP中类加载.html">
+<meta property="og:site_name" content="liwd 自留地">
+<meta property="og:description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-03T02:17:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP中类加载">
+<meta name="twitter:description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>PHP中类加载</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+      </ul>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PHP中类加载
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">liwd</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-09-20T16:00:00.000Z" itemprop="datePublished">2016 九月 21</time>
+    </div>
+
+
+      <span class="view-times">
+        阅读：<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/PHP/">PHP</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="最原始的加载方法"><a href="#最原始的加载方法" class="headerlink" title="最原始的加载方法"></a>最原始的加载方法</h2><p>在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:<br><figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">    <span class="keyword">include</span> <span class="string">'mysql.class.php'</span>;</div><div class="line">    $db = <span class="keyword">new</span> Mysql();</div></pre></td></tr></table></figure></p>
+<p>这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。</p>
+<h2 id="autoload实现加载"><a href="#autoload实现加载" class="headerlink" title="__autoload实现加载"></a><code>__autoload</code>实现加载</h2><p>可以写一个公共的加载类，公共加载类中写一个__autoload()方法来实现自动加载其他类，代码如下所示:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></div><div class="line"><span class="class">    </span>&#123;</div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($class)</span></span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">          	<span class="keyword">include</span> $class . <span class="string">'.class.php'</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>同样的也可以，可以用spl_autoload_register这个方法来实现，这个方法是注册给定的函数作为<code>__autoload</code>的实现，也就是说可以有一个方法来进行一些操作，然后作为参数传递给spl_autoload_register，示例如下：<br><figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">global</span> $filepath;</div><div class="line"></div><div class="line">spl_autoload_register(<span class="function"><span class="keyword">function</span><span class="params">($class)</span> <span class="title">use</span> <span class="params">($filepath)</span> </span>&#123;</div><div class="line">    <span class="comment">// 将这个全局变量声明为数组</span></div><div class="line">    <span class="keyword">if</span> (is_null($filepath)) &#123;</div><div class="line">        $filepath = [];</div><div class="line">    &#125;</div><div class="line">    $classname = strtolower($class);</div><div class="line">    $filename = dirname(<span class="keyword">__DIR__</span>) . DIRECTORY_SEPARATOR . $classname . <span class="string">'.class.php'</span>;</div><div class="line">    $filename = strtr($filename, <span class="string">'//'</span>, DIRECTORY_SEPARATOR);</div><div class="line">    $filepath[$classname] = $filepath[$classname] ?? <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">echo</span> $filename;</div><div class="line">    print_r($filepath);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="使用composer工具来生成自动加载"><a href="#使用composer工具来生成自动加载" class="headerlink" title="使用composer工具来生成自动加载"></a>使用composer工具来生成自动加载</h2><p><code>composer</code>的使用方法，在使用<code>composer</code>来生成自动加载的时候，需要提前写一个<code>composer.json</code>文件，然后在文件中写入要进行自动加载的命名空间或者其他的，<code>php</code>的<code>PSR-4</code>中对类的加载做了一个规范:<code>PSR-4</code>。<br>下面是我用<code>composer</code>自动加载的一个示例：</p>
+<h3 id="目录结构为"><a href="#目录结构为" class="headerlink" title="目录结构为:"></a>目录结构为:</h3><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── composer.json</div><div class="line">├── mode</div><div class="line">│   ├── ceshi.php</div><div class="line">│   ├── db.php</div><div class="line">│   ├── mysql</div><div class="line">│   │   └── mysql.php</div><div class="line">│   └── pgsql</div><div class="line">│       └── pgsql.php</div></pre></td></tr></table></figure>
+<h3 id="composer的写法"><a href="#composer的写法" class="headerlink" title="composer的写法"></a><code>composer</code>的写法</h3><figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"autoload"</span>: &#123;</div><div class="line">    <span class="attr">"psr-4"</span>: &#123;</div><div class="line">      <span class="attr">"Mode\\"</span>: <span class="string">"Mode/"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我是使用的<code>psr-4</code>的规范进行加载的，<code>&quot;Mode\\&quot;: &quot;Mode/&quot;</code>，这里边前边的是你使用的时候的最顶层的命名空间名，后边的是你的代码的路径。</p>
+<h3 id="使用composer生成自动加载"><a href="#使用composer生成自动加载" class="headerlink" title="使用composer生成自动加载"></a>使用composer生成自动加载</h3><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">composer dump-autolaod</div></pre></td></tr></table></figure>
+<p>使用<br>在执行完上一步的命令之后，会发现目录下多了一个vendor的目录，然后在php文件中引入vendor目录中的autoload.php文件，然后就可以达到自动加载的目的了。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最原始的加载方法"><span class="toc-number">1.</span> <span class="toc-text">最原始的加载方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#autoload实现加载"><span class="toc-number">2.</span> <span class="toc-text">__autoload实现加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用composer工具来生成自动加载"><span class="toc-number">3.</span> <span class="toc-text">使用composer工具来生成自动加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构为"><span class="toc-number">3.1.</span> <span class="toc-text">目录结构为:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#composer的写法"><span class="toc-number">3.2.</span> <span class="toc-text">composer的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用composer生成自动加载"><span class="toc-number">3.3.</span> <span class="toc-text">使用composer生成自动加载</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/PHP中类加载.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/PHP中类加载.html&text=PHP中类加载"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/PHP中类加载.html&is_video=false&description=PHP中类加载"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP中类加载&body=Check out this article: http://blog.51liwd.cc/PHP中类加载.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/PHP中类加载.html&name=PHP中类加载&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Powered by liwd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="http://github.com/baseli">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+

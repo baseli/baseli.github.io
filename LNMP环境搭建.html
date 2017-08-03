@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+<meta name="keywords" content="PHP,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LNMP环境搭建">
+<meta property="og:url" content="http://blog.51liwd.cc/LNMP环境搭建.html">
+<meta property="og:site_name" content="liwd 自留地">
+<meta property="og:description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg">
+<meta property="og:updated_time" content="2017-08-03T01:15:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LNMP环境搭建">
+<meta name="twitter:description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>LNMP环境搭建</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+      </ul>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LNMP环境搭建
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">liwd</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-03-21T16:00:00.000Z" itemprop="datePublished">2016 三月 22</time>
+    </div>
+
+
+      <span class="view-times">
+        阅读：<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>, <a class="tag-link" href="/tags/PHP/">PHP</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="LNMP环境配置过程"><a href="#LNMP环境配置过程" class="headerlink" title="LNMP环境配置过程"></a><code>LNMP</code>环境配置过程</h2><h3 id="Nginx的安装"><a href="#Nginx的安装" class="headerlink" title="Nginx的安装"></a><code>Nginx</code>的安装</h3><ol>
+<li>安装依赖</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel</div></pre></td></tr></table></figure>
+<ol>
+<li>创建<code>nginx</code>用户</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">groupadd www</div><div class="line">useradd -g www www</div></pre></td></tr></table></figure>
+<ol>
+<li>源码编译</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./configure --prefix=/opt/nginx \</div><div class="line">--with-http_ssl_module \</div><div class="line">--with-http_v2_module \</div><div class="line">--with-http_realip_module \</div><div class="line">--user=www \</div><div class="line">--group=www</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<ol>
+<li><p>测试是否正常访问</p>
+<blockquote>
+<p>安装完成后可执行<code>/opt/nginx/sbin/nginx</code>启动<code>nginx</code></p>
+</blockquote>
+<p>使用<code>curl 127.0.0.1</code>测试<code>nginx</code>是否正常启动并且能正常访问了，如果出现如下图所示的界面，则表示<code>nginx</code>已经安装成功了。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg" alt=""></p>
+</li>
+</ol>
+<h3 id="MySql的安装"><a href="#MySql的安装" class="headerlink" title="MySql的安装"></a><code>MySql</code>的安装</h3><blockquote>
+<p>下载地址: wget <a href="https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.36.tar.gz" target="_blank" rel="external">https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.36.tar.gz</a></p>
+</blockquote>
+<p><strong>Tips:</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">如果出现了内存不够的情况，可以通过添加swap来解决</div><div class="line"><span class="meta">#</span> dd if=/dev/zero of=/swapfile bs=1k count=2048000 --获取要增加的2G的SWAP文件块</div><div class="line"><span class="meta">#</span> mkswap /swapfile     -- 创建SWAP文件</div><div class="line"><span class="meta">#</span> swapon /swapfile     -- 激活SWAP文件</div><div class="line"><span class="meta">#</span> swapon -s            -- 查看SWAP信息是否正确</div><div class="line"><span class="meta">#</span> echo "/var/swapfile swap swap defaults 0 0" &gt;&gt; /etc/fstab     -- 添加到fstab文件中让系统引导时自动启动</div><div class="line">注意, swapfile文件的路径在/var/下</div><div class="line">编译完后, 如果不想要交换分区了, 可以删除:</div><div class="line"></div><div class="line"><span class="meta">#</span> swapoff /swapfile</div><div class="line"><span class="meta">#</span> rm -fr /swapfile</div></pre></td></tr></table></figure>
+<ol>
+<li>安装依赖</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">yum install autoconf automake zlib* libxml* ncurses-devel libmcrypt* libtool* cmake boost boost-devel</div></pre></td></tr></table></figure>
+<ol>
+<li>创建用户</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">groupadd mysql</div><div class="line">useradd -g mysql mysql</div></pre></td></tr></table></figure>
+<ol>
+<li>创建数据存放目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">mkdir -p /var/data</div><div class="line">chown -R mysql:mysql /var/data</div></pre></td></tr></table></figure>
+<ol>
+<li>编译安装</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql \</div><div class="line">-DMYSQL_UNIX_ADDR=/tmp/mysqld.sock \</div><div class="line">-DDEFAULT_CHARSET=utf8 \</div><div class="line">-DDEFAULT_COLLATION=utf8_general_ci \</div><div class="line">-DWITH_EXTRA_CHARSETS:STRING=utf8,gbk \</div><div class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</div><div class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</div><div class="line">-DWITH_MEMORY_STORAGE_ENGINE=1 \</div><div class="line">-DWITH_READLINE=1 \</div><div class="line">-DENABLED_LOCAL_INFILE=1 \</div><div class="line">-DMYSQL_DATADIR=/var/data \</div><div class="line">-DMYSQL_USER=mysql \</div><div class="line">-DMYSQL_TCP_PORT=3306</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<ol>
+<li>复制配置文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">cp support-files/my-default.cnf /etc/my.cnf</div></pre></td></tr></table></figure>
+<ol>
+<li>初始化数据库</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./scripts/mysql_install_db --user=mysql --basedir=/opt/mysql/ --datadir=/var/data/</div></pre></td></tr></table></figure>
+<ol>
+<li>启动</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./support-files/mysql.server start</div></pre></td></tr></table></figure>
+<p>然后连接即可</p>
+<h3 id="PHP安装"><a href="#PHP安装" class="headerlink" title="PHP安装"></a><code>PHP</code>安装</h3><ol>
+<li>安装依赖</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">yum -y install libcurl libcurl-devel libmcrypt libmcrypt-devel zlib zlib-devel libxml2 libxml2-devel</div></pre></td></tr></table></figure>
+<ol>
+<li>编译安装</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./configure --prefix=/opt/php \</div><div class="line">--enable-fpm \</div><div class="line">--with-libxml-dir \</div><div class="line">--with-openssl \</div><div class="line">--enable-mbstring \</div><div class="line">--with-mcrypt \</div><div class="line">--with-config-file-path=/etc/php \</div><div class="line">--enable-opcache \</div><div class="line">--with-zlib-dir \</div><div class="line">--with-pdo-mysql \</div><div class="line">--with-curl</div></pre></td></tr></table></figure>
+<ol>
+<li>开启<code>php-fpm</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">cp etc/php-fpm.conf.default etc/php-fpm.conf</div><div class="line">cp etc/php-fpm.d/www.conf.default etc/php-fpm.d/www.conf</div></pre></td></tr></table></figure>
+<ol>
+<li>修改<code>nginx</code>配置，将<code>php</code>转发到<code>php-fpm</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">location ~ \.php$ &#123;</div><div class="line">    root           /opt/nginx/html;</div><div class="line">    fastcgi_pass   127.0.0.1:9000;</div><div class="line">    fastcgi_index  index.php;</div><div class="line">    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">    include        fastcgi_params;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>启动测试</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">/opt/nginx/sbin/nginx -s reload</div><div class="line">/opt/php/sbin/php-fpm</div><div class="line">echo &lt;?php phpinfo() &gt; /opt/nginx/html/index.php</div><div class="line">curl 127.0.0.1/index.php</div></pre></td></tr></table></figure>
+<ol>
+<li>启用<code>opcache</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">zend_extension=opcache.so</div><div class="line">opcache.enable=1</div><div class="line">opcache.enable_cli=1</div><div class="line">opcache.file_cache=/tmp</div></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LNMP环境配置过程"><span class="toc-number">1.</span> <span class="toc-text">LNMP环境配置过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx的安装"><span class="toc-number">1.1.</span> <span class="toc-text">Nginx的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySql的安装"><span class="toc-number">1.2.</span> <span class="toc-text">MySql的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP安装"><span class="toc-number">1.3.</span> <span class="toc-text">PHP安装</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/LNMP环境搭建.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/LNMP环境搭建.html&text=LNMP环境搭建"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/LNMP环境搭建.html&is_video=false&description=LNMP环境搭建"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LNMP环境搭建&body=Check out this article: http://blog.51liwd.cc/LNMP环境搭建.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/LNMP环境搭建.html&name=LNMP环境搭建&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Powered by liwd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="http://github.com/baseli">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
