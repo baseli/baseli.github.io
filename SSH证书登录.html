@@ -7,18 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="起因 由于阿里云服务器购买回来之后，一直在使用root用户及密码进行登录，但这样是极不安全的，加之最近在对服务器做一些安全策略，所以讲服务器的登录切换到证书登录，禁用root用户，并且禁止密码登录。 最小的权限 + 最少的服务 = 最大的安全 谨记这个原则  客户端生成公钥和私钥 使用我们以后要进行登录的用户进行登录服务器 生成ssh公钥和私钥 ssh-keygen -t rsa 在执行完上述命令">
+    <meta name="description" content="SSH证书登录 基本的安全设置">
 <meta name="keywords" content="PHP,Linux,SSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH证书登录">
-<meta property="og:url" content="http://blog.51liwd.cc/SSH证书登录.html">
+<meta property="og:url" content="https://51liwd.cc/SSH证书登录.html">
 <meta property="og:site_name" content="liwd 自留地">
-<meta property="og:description" content="起因 由于阿里云服务器购买回来之后，一直在使用root用户及密码进行登录，但这样是极不安全的，加之最近在对服务器做一些安全策略，所以讲服务器的登录切换到证书登录，禁用root用户，并且禁止密码登录。 最小的权限 + 最少的服务 = 最大的安全 谨记这个原则  客户端生成公钥和私钥 使用我们以后要进行登录的用户进行登录服务器 生成ssh公钥和私钥 ssh-keygen -t rsa 在执行完上述命令">
+<meta property="og:description" content="SSH证书登录 基本的安全设置">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2017-08-03T02:44:22.000Z">
+<meta property="og:updated_time" content="2017-08-03T04:37:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH证书登录">
-<meta name="twitter:description" content="起因 由于阿里云服务器购买回来之后，一直在使用root用户及密码进行登录，但这样是极不安全的，加之最近在对服务器做一些安全策略，所以讲服务器的登录切换到证书登录，禁用root用户，并且禁止密码登录。 最小的权限 + 最少的服务 = 最大的安全 谨记这个原则  客户端生成公钥和私钥 使用我们以后要进行登录的用户进行登录服务器 生成ssh公钥和私钥 ssh-keygen -t rsa 在执行完上述命令">
+<meta name="twitter:description" content="SSH证书登录 基本的安全设置">
     
     
         
@@ -96,6 +96,13 @@
       </span>
       
     <div class="article-tag">
+        <i class="fa fa-bookmark"></i>
+        <a class="category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Linux/">Linux</a>, <a class="tag-link" href="/tags/PHP/">PHP</a>, <a class="tag-link" href="/tags/SSH/">SSH</a>
     </div>
@@ -154,16 +161,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/SSH证书登录.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/SSH证书登录.html&text=SSH证书登录"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/SSH证书登录.html&is_video=false&description=SSH证书登录"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=SSH证书登录&body=Check out this article: http://blog.51liwd.cc/SSH证书登录.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/SSH证书登录.html&name=SSH证书登录&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://51liwd.cc/SSH证书登录.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://51liwd.cc/SSH证书登录.html&text=SSH证书登录"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://51liwd.cc/SSH证书登录.html&is_video=false&description=SSH证书登录"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SSH证书登录&body=Check out this article: https://51liwd.cc/SSH证书登录.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://51liwd.cc/SSH证书登录.html&title=SSH证书登录"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://51liwd.cc/SSH证书登录.html&name=SSH证书登录&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -189,7 +196,7 @@
         
           <li><a href="/">首页</a></li>
         
-          <li><a href="/category/">分类</a></li>
+          <li><a href="/categories/">分类</a></li>
         
           <li><a href="/archives/">文章</a></li>
         

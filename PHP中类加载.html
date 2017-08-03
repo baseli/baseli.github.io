@@ -7,18 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+    <meta name="description" content="PHP中的类加载方式">
 <meta name="keywords" content="PHP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP中类加载">
-<meta property="og:url" content="http://blog.51liwd.cc/PHP中类加载.html">
+<meta property="og:url" content="https://51liwd.cc/PHP中类加载.html">
 <meta property="og:site_name" content="liwd 自留地">
-<meta property="og:description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+<meta property="og:description" content="PHP中的类加载方式">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2017-08-03T02:44:16.000Z">
+<meta property="og:updated_time" content="2017-08-03T04:36:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP中类加载">
-<meta name="twitter:description" content="最原始的加载方法在刚开始学习php的时候，基本上遇到要进行实例化另一个类的时候，通常都是这样去做的:&amp;lt;?php    include &apos;mysql.class.php&apos;;    $db = new Mysql(); 这样的问题就是如果遇到一个类中要引用好多其他的类，怎么办，一个一个去引入，就显得比较麻烦了，在这个问题下就引出了一种新的加载方法。 __autoload实现加载可以写一个公共的加">
+<meta name="twitter:description" content="PHP中的类加载方式">
     
     
         
@@ -96,6 +96,13 @@
       </span>
       
     <div class="article-tag">
+        <i class="fa fa-bookmark"></i>
+        <a class="category-link" href="/categories/PHP/">PHP</a>
+    </div>
+
+
+      
+    <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/PHP/">PHP</a>
     </div>
@@ -141,16 +148,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/PHP中类加载.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/PHP中类加载.html&text=PHP中类加载"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/PHP中类加载.html&is_video=false&description=PHP中类加载"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PHP中类加载&body=Check out this article: http://blog.51liwd.cc/PHP中类加载.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/PHP中类加载.html&name=PHP中类加载&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://51liwd.cc/PHP中类加载.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://51liwd.cc/PHP中类加载.html&text=PHP中类加载"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://51liwd.cc/PHP中类加载.html&is_video=false&description=PHP中类加载"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP中类加载&body=Check out this article: https://51liwd.cc/PHP中类加载.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://51liwd.cc/PHP中类加载.html&title=PHP中类加载"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://51liwd.cc/PHP中类加载.html&name=PHP中类加载&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -176,7 +183,7 @@
         
           <li><a href="/">首页</a></li>
         
-          <li><a href="/category/">分类</a></li>
+          <li><a href="/categories/">分类</a></li>
         
           <li><a href="/archives/">文章</a></li>
         

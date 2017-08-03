@@ -7,19 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+    <meta name="description" content="LNMP环境搭建">
 <meta name="keywords" content="PHP,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LNMP环境搭建">
-<meta property="og:url" content="http://blog.51liwd.cc/LNMP环境搭建.html">
+<meta property="og:url" content="https://51liwd.cc/LNMP环境搭建.html">
 <meta property="og:site_name" content="liwd 自留地">
-<meta property="og:description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+<meta property="og:description" content="LNMP环境搭建">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg">
-<meta property="og:updated_time" content="2017-08-03T02:44:10.000Z">
+<meta property="og:updated_time" content="2017-08-03T04:36:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP环境搭建">
-<meta name="twitter:description" content="LNMP环境配置过程Nginx的安装 安装依赖  yum install gcc gcc-c++ pcre pcre-devel openssl openssl-devel  创建nginx用户  groupadd wwwuseradd -g www www  源码编译  ./configure --prefix=/opt/nginx \--with-http_ssl_module \--with">
+<meta name="twitter:description" content="LNMP环境搭建">
 <meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg">
     
     
@@ -96,6 +96,13 @@
       <span class="view-times">
         阅读：<span id="busuanzi_value_page_pv"></span>次
       </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-bookmark"></i>
+        <a class="category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
       
     <div class="article-tag">
         <i class="fa fa-tag"></i>
@@ -211,16 +218,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.51liwd.cc/LNMP环境搭建.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.51liwd.cc/LNMP环境搭建.html&text=LNMP环境搭建"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.51liwd.cc/LNMP环境搭建.html&is_video=false&description=LNMP环境搭建"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=LNMP环境搭建&body=Check out this article: http://blog.51liwd.cc/LNMP环境搭建.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.51liwd.cc/LNMP环境搭建.html&name=LNMP环境搭建&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://51liwd.cc/LNMP环境搭建.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://51liwd.cc/LNMP环境搭建.html&text=LNMP环境搭建"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://51liwd.cc/LNMP环境搭建.html&is_video=false&description=LNMP环境搭建"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LNMP环境搭建&body=Check out this article: https://51liwd.cc/LNMP环境搭建.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://51liwd.cc/LNMP环境搭建.html&title=LNMP环境搭建"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://51liwd.cc/LNMP环境搭建.html&name=LNMP环境搭建&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -246,7 +253,7 @@
         
           <li><a href="/">首页</a></li>
         
-          <li><a href="/category/">分类</a></li>
+          <li><a href="/categories/">分类</a></li>
         
           <li><a href="/archives/">文章</a></li>
         
