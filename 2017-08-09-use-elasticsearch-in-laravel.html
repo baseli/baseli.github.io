@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在laravel中使用elasticsearch">
+<meta name="keywords" content="PHP,Laravel,elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在laravel中使用elasticsearch">
+<meta property="og:url" content="https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html">
+<meta property="og:site_name" content="liwd 自留地">
+<meta property="og:description" content="在laravel中使用elasticsearch">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://oco6fs57t.bkt.clouddn.com/20170809150228481488910.png">
+<meta property="og:updated_time" content="2017-08-09T13:36:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在laravel中使用elasticsearch">
+<meta name="twitter:description" content="在laravel中使用elasticsearch">
+<meta name="twitter:image" content="http://oco6fs57t.bkt.clouddn.com/20170809150228481488910.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>在laravel中使用elasticsearch</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+      </ul>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        在laravel中使用elasticsearch
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">liwd</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-08T16:00:00.000Z" itemprop="datePublished">2017 八月 09</time>
+    </div>
+
+
+      <span class="view-times">
+        阅读：<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-bookmark"></i>
+        <a class="category-link" href="/categories/PHP/">PHP</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Laravel/">Laravel</a>, <a class="tag-link" href="/tags/PHP/">PHP</a>, <a class="tag-link" href="/tags/elasticsearch/">elasticsearch</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="在Laravel中使用elasticsearch"><a href="#在Laravel中使用elasticsearch" class="headerlink" title="在Laravel中使用elasticsearch"></a>在<code>Laravel</code>中使用<code>elasticsearch</code></h2><blockquote>
+<p>要在现有的系统中进行分词，并对数据建立索引，从而达到优化搜索的目的。</p>
+</blockquote>
+<h3 id="几种方案"><a href="#几种方案" class="headerlink" title="几种方案"></a>几种方案</h3><h4 id="Mysql-Sphinx-Coreseek"><a href="#Mysql-Sphinx-Coreseek" class="headerlink" title="Mysql + Sphinx + Coreseek"></a><code>Mysql</code> + <code>Sphinx</code> + <code>Coreseek</code></h4><p><code>Sphinx</code> 建立索引配合 <code>Coreseek</code> 进行分词，但是在我打开<a href="http://www.coreseek.cn/" target="_blank" rel="external"><code>Coreseek</code></a>的官网的时候，已经提示找不到<code>Dns</code>了，不知道是什么情况。</p>
+<h4 id="xunsearch"><a href="#xunsearch" class="headerlink" title="xunsearch"></a><code>xunsearch</code></h4><p>在官网看了看<a href="http://www.xunsearch.com/" target="_blank" rel="external"><code>xunsearch</code></a>的说明，感觉可以完成我们项目中要求的功能，心里总想试试<code>elasticsearch</code>吧，说不定以后会使用的更多，所以也就不考虑这个了。</p>
+<h4 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a><code>elasticsearch</code></h4><p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html" target="_blank" rel="external"><code>elasticsearch</code></a>的功能比较强大，目前中只是用到了一点，以后慢慢探索吧，这里用到了中文分词插件<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="external"><code>ik</code></a></p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>在<code>Laravel 5.3</code>后官方提供了全文搜索的解决方案<code>Laravel Scout</code>，会自动同步<strong>增，删，改</strong>的操作，但是官方目前只支持<code>algolia</code>驱动，但是在<code>Scout</code>上进行扩展是比较容易的，所以本文中采用了<code>Scout</code> + <code>elasticsearch</code>的方案来实现。</p>
+<h4 id="安装Scout"><a href="#安装Scout" class="headerlink" title="安装Scout"></a>安装<code>Scout</code></h4><ol>
+<li>使用<code>composer</code>安装</li>
+</ol>
+<p><code>composer require laravel/scout</code></p>
+<ol>
+<li>注册服务提供者</li>
+<li>生成配置文件</li>
+</ol>
+<h4 id="安装elasticsearch"><a href="#安装elasticsearch" class="headerlink" title="安装elasticsearch"></a>安装<code>elasticsearch</code></h4><ol>
+<li><code>elasticsearch</code>安装</li>
+</ol>
+<p><code>elasticsearch</code>的安装相对是比较简单的，注意安装<code>java</code>环境即可。</p>
+<ol>
+<li><code>ik</code>分词插件的安装</li>
+</ol>
+<p>在<code>github</code>上作者已经<code>release</code>了好多版本，不想自己<code>maven</code>打包的，可以直接下载，注意和<code>es</code>的版本保持一致。</p>
+<ol>
+<li>验证<code>ik</code>插件是否安装成功</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">/path/to/es/elasticsearch-plugin list</div></pre></td></tr></table></figure>
+<p>如果出现如下图所示的界面，则表示安装成功</p>
+<p><img src="http://oco6fs57t.bkt.clouddn.com/20170809150228481488910.png" alt=""></p>
+<h3 id="配置Scout编写elasticsearch扩展"><a href="#配置Scout编写elasticsearch扩展" class="headerlink" title="配置Scout编写elasticsearch扩展"></a>配置<code>Scout</code>编写<code>elasticsearch</code>扩展</h3><p>配置示例如下:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">return</span> [</div><div class="line">    <span class="string">'driver'</span> =&gt; env(<span class="string">'SCOUT_DRIVER'</span>, <span class="string">'elasticsearch'</span>),</div><div class="line">    <span class="string">'prefix'</span> =&gt; env(<span class="string">'SCOUT_PREFIX'</span>, <span class="string">''</span>),</div><div class="line">    <span class="string">'queue'</span> =&gt; env(<span class="string">'SCOUT_QUEUE'</span>, <span class="keyword">false</span>),</div><div class="line">    <span class="string">'chunk'</span> =&gt; [</div><div class="line">        <span class="string">'searchable'</span> =&gt; <span class="number">500</span>,</div><div class="line">        <span class="string">'unsearchable'</span> =&gt; <span class="number">500</span>,</div><div class="line">    ],</div><div class="line">    <span class="string">'algolia'</span> =&gt; [</div><div class="line">        <span class="string">'id'</span> =&gt; env(<span class="string">'ALGOLIA_APP_ID'</span>, <span class="string">''</span>),</div><div class="line">        <span class="string">'secret'</span> =&gt; env(<span class="string">'ALGOLIA_SECRET'</span>, <span class="string">''</span>),</div><div class="line">    ],</div><div class="line"></div><div class="line">    <span class="string">'elasticsearch'</span> =&gt; [</div><div class="line">        <span class="string">'index'</span> =&gt; env(<span class="string">'ELASTICSEARCH_INDEX'</span>, <span class="string">'laravel'</span>),</div><div class="line">        <span class="string">'hosts'</span> =&gt; [</div><div class="line">            env(<span class="string">'ELASTICSEARCH_HOST'</span>, <span class="string">'http://localhost:9200'</span>),</div><div class="line">        ],</div><div class="line">    ],</div><div class="line">];</div></pre></td></tr></table></figure>
+<p>配置正常时候，还没有<code>elasticsearch</code>的支持,所以还需要添加<code>elasticsearch</code>的支持</p>
+<ol>
+<li>编写<code>ElasticsearchEgnine</code>实现下边这几个方法即可</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($models)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delete</span><span class="params">($models)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">(Builder $builder)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">paginate</span><span class="params">(Builder $builder, $perPage, $page)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">mapIds</span><span class="params">($results)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">map</span><span class="params">($results, $model)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getTotalCount</span><span class="params">($results)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>注册服务</li>
+</ol>
+<p>将实现的<code>ElasticsearchEngine</code>加入到<code>provider</code></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EsServiceProvider</span> <span class="keyword">extends</span> <span class="title">ServiceProvider</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">	 * Bootstrap any application services.</span></div><div class="line"><span class="comment">	 *</span></div><div class="line"><span class="comment">	 * <span class="doctag">@return</span> void</span></div><div class="line"><span class="comment">	 */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">        resolve(EngineManager::class)-&gt;extend(<span class="string">'elasticsearch'</span>, <span class="function"><span class="keyword">function</span><span class="params">($app)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ElasticsearchEngine(ElasticBuilder::create()</div><div class="line">                -&gt;setHosts(config(<span class="string">'scout.elasticsearch.hosts'</span>))</div><div class="line">                -&gt;build(),</div><div class="line">                config(<span class="string">'scout.elasticsearch.index'</span>)</div><div class="line">            );</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">	 * Register any application services.</span></div><div class="line"><span class="comment">	 *</span></div><div class="line"><span class="comment">	 * <span class="doctag">@return</span> void</span></div><div class="line"><span class="comment">	 */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">register</span><span class="params">()</span></span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">        <span class="comment">//</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后再<code>config/app.php</code>中加入这个<code>provider</code></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>在需要使用的模型中添加<code>Searchable</code>这个<code>trait</code></li>
+<li>使用<code>scout</code>命令导入</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">php artisan scout:import 'App\Users'</div></pre></td></tr></table></figure>
+<ol>
+<li>编写搜索</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>;</div><div class="line">  </div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Routing</span>\<span class="title">Controller</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Users</span>;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">(Request $request)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="comment">// 注意这里如果要分页的话，只能使用query，因为scout中是写死的</span></div><div class="line">    $searchPattern = $request-&gt;input(<span class="string">'query'</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($searchPattern)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">''</span>;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    $result = Users::search($searchPattern)-&gt;paginate(<span class="number">10</span>);</div><div class="line">  </div><div class="line">    <span class="keyword">return</span> $result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在Laravel中使用elasticsearch"><span class="toc-number">1.</span> <span class="toc-text">在Laravel中使用elasticsearch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#几种方案"><span class="toc-number">1.1.</span> <span class="toc-text">几种方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mysql-Sphinx-Coreseek"><span class="toc-number">1.1.1.</span> <span class="toc-text">Mysql + Sphinx + Coreseek</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xunsearch"><span class="toc-number">1.1.2.</span> <span class="toc-text">xunsearch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#elasticsearch"><span class="toc-number">1.1.3.</span> <span class="toc-text">elasticsearch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体实现"><span class="toc-number">1.2.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Scout"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装Scout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装elasticsearch"><span class="toc-number">1.2.2.</span> <span class="toc-text">安装elasticsearch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置Scout编写elasticsearch扩展"><span class="toc-number">1.3.</span> <span class="toc-text">配置Scout编写elasticsearch扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">1.4.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&text=在laravel中使用elasticsearch"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&title=在laravel中使用elasticsearch"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&is_video=false&description=在laravel中使用elasticsearch"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在laravel中使用elasticsearch&body=Check out this article: https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&title=在laravel中使用elasticsearch"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&title=在laravel中使用elasticsearch"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&title=在laravel中使用elasticsearch"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&title=在laravel中使用elasticsearch"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html&name=在laravel中使用elasticsearch&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Powered by liwd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="http://github.com/baseli">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
