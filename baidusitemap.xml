@@ -4,6 +4,94 @@
 
     
   <url>
+    <loc>https://51liwd.cc/2017-08-17-use-websocket-to-push-message-in-laravel.html</loc>
+    <lastmod>2017-09-26T09:11:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>在laravel中websocket进行消息推送</title>
+        <pubTime>2017-08-16T16:00:00.000Z</pubTime>
+        
+        <tag>PHP</tag>
+         
+        <tag>Laravel</tag>
+         
+        <tag>websocket</tag>
+         
+         
+           
+             
+              <breadCrumb title="PHP" url="https://51liwd.cc/categories/PHP/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://51liwd.cc/webpack%E4%B8%AD%E5%AF%B9%E5%85%AC%E7%94%A8%E9%83%A8%E5%88%86%E8%BF%9B%E8%A1%8C%E6%8F%90%E5%8F%96.html</loc>
+    <lastmod>2017-09-26T08:25:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>webpack打包时对公用部分进行提取</title>
+        <pubTime>2017-09-24T16:00:00.000Z</pubTime>
+        
+        <tag>javascript</tag>
+         
+        <tag>webpack</tag>
+         
+         
+           
+             
+              <breadCrumb title="javascript" url="https://51liwd.cc/categories/javascript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://51liwd.cc/webpack%E6%89%93%E5%8C%85vue%E5%8E%BB%E6%8E%89%E8%AD%A6%E5%91%8A%E4%BF%A1%E6%81%AF.html</loc>
+    <lastmod>2017-09-26T07:50:02.000Z</lastmod>
+    <data>
+        <display>
+        <title>webpack打包vue应用时，正式环境下去除警告等信息</title>
+        <pubTime>2017-09-25T16:00:00.000Z</pubTime>
+        
+        <tag>javascript</tag>
+         
+         
+           
+             
+              <breadCrumb title="javascript" url="https://51liwd.cc/categories/javascript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://51liwd.cc/LNMP%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html</loc>
+    <lastmod>2017-08-24T09:31:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>LNMP环境搭建</title>
+        <pubTime>2016-03-21T16:00:00.000Z</pubTime>
+        
+        <tag>PHP</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://51liwd.cc/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://51liwd.cc/2017-08-09-use-elasticsearch-in-laravel.html</loc>
     <lastmod>2017-08-09T13:36:09.000Z</lastmod>
     <data>
@@ -87,28 +175,6 @@
            
              
               <breadCrumb title="PHP" url="https://51liwd.cc/categories/PHP/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://51liwd.cc/LNMP%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html</loc>
-    <lastmod>2017-08-03T04:36:25.000Z</lastmod>
-    <data>
-        <display>
-        <title>LNMP环境搭建</title>
-        <pubTime>2016-03-21T16:00:00.000Z</pubTime>
-        
-        <tag>PHP</tag>
-         
-        <tag>Linux</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://51liwd.cc/categories/Linux/"/>
           
         </display>
     </data>

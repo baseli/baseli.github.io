@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="webpack打包时对公用部分进行提取">
+<meta name="keywords" content="javascript,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack打包时对公用部分进行提取">
+<meta property="og:url" content="https://51liwd.cc/webpack中对公用部分进行提取.html">
+<meta property="og:site_name" content="liwd 自留地">
+<meta property="og:description" content="webpack打包时对公用部分进行提取">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://oco6fs57t.bkt.clouddn.com/20170926150641401034209.png">
+<meta property="og:image" content="http://oco6fs57t.bkt.clouddn.com/20170926150641317546378.png">
+<meta property="og:updated_time" content="2017-09-26T08:25:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack打包时对公用部分进行提取">
+<meta name="twitter:description" content="webpack打包时对公用部分进行提取">
+<meta name="twitter:image" content="http://oco6fs57t.bkt.clouddn.com/20170926150641401034209.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>webpack打包时对公用部分进行提取</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+      </ul>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        webpack打包时对公用部分进行提取
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">liwd</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-24T16:00:00.000Z" itemprop="datePublished">2017 九月 25</time>
+    </div>
+
+
+      <span class="view-times">
+        阅读：<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+    <div class="article-tag">
+        <i class="fa fa-bookmark"></i>
+        <a class="category-link" href="/categories/javascript/">javascript</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/javascript/">javascript</a>, <a class="tag-link" href="/tags/webpack/">webpack</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="webpack打包时对公用部分进行提取"><a href="#webpack打包时对公用部分进行提取" class="headerlink" title="webpack打包时对公用部分进行提取"></a><code>webpack</code>打包时对公用部分进行提取</h2><blockquote>
+<p>在使用<code>webpack</code>进行打包的时候发现打包的体积比较大，所以想办法来解决这个问题</p>
+</blockquote>
+<h3 id="使用webpack的dll插件提取公共部分"><a href="#使用webpack的dll插件提取公共部分" class="headerlink" title="使用webpack的dll插件提取公共部分"></a>使用<code>webpack</code>的<code>dll</code>插件提取公共部分</h3><blockquote>
+<p>文档地址: <a href="https://webpack.js.org/plugins/dll-plugin/#src/components/Sidebar/Sidebar.jsx" target="_blank" rel="external">webpack dll插件文档</a><br>使用的时候分两步：</p>
+<ol>
+<li>使用<code>DllPlugin</code>插件生成<code>dll</code>的配置文件，然后进行打包生成<code>js</code>文件</li>
+<li>使用<code>DllReferencePlugin</code>插件在主配置文件的<code>plugin</code>中添加相关内容，并且引入刚才生成的<code>js</code>文件到<code>html</code>文件中</li>
+</ol>
+</blockquote>
+<p>在将生成的<code>js</code>文件写入到<code>html</code>文件的时候这里使用的是<code>add-asset-html-webpack-plugin</code>这个插件，相关配置如下:<br><code>Dll</code>:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>)</div><div class="line"><span class="keyword">const</span> UglifyJSPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>)</div><div class="line"></div><div class="line"><span class="keyword">const</span> vendors = [</div><div class="line">  <span class="string">'vue'</span>,</div><div class="line">  <span class="string">'vuex'</span>,</div><div class="line">  <span class="string">'vue-router'</span></div><div class="line">]</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  output: &#123;</div><div class="line">    path: path.resolve(__dirname, <span class="string">'src/assets'</span>),</div><div class="line">    filename: <span class="string">'js/[name].js'</span>,</div><div class="line">    library: <span class="string">'[name]'</span>,</div><div class="line">    libraryTarget: <span class="string">"var"</span></div><div class="line">  &#125;,</div><div class="line">  entry: &#123;</div><div class="line">    <span class="string">"lib"</span>: vendors,</div><div class="line">  &#125;,</div><div class="line">  plugins: [</div><div class="line">    <span class="keyword">new</span> UglifyJSPlugin(&#123;</div><div class="line">      exclude: <span class="regexp">/\.min\.js$/</span>,</div><div class="line">      parallel: &#123;</div><div class="line">        cache: <span class="literal">true</span>,</div><div class="line">        workers: os.cpus().length</div><div class="line">      &#125;,</div><div class="line">      uglifyOptions: &#123;</div><div class="line">        ecma: <span class="number">5</span>,</div><div class="line">        compress: &#123;</div><div class="line">          warnings: <span class="literal">false</span>,</div><div class="line">          drop_console: <span class="literal">true</span>,</div><div class="line">          drop_debugger: <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;),</div><div class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</div><div class="line">      path: <span class="string">'manifest.json'</span>,</div><div class="line">      name: <span class="string">'[name]'</span>,</div><div class="line">      context: __dirname,</div><div class="line">    &#125;),</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>webpack</code>主配置文件:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  ...</div><div class="line">  plugin: [</div><div class="line">    <span class="keyword">new</span> webpack.DllReferencePlugin(&#123;</div><div class="line">      context: __dirname,</div><div class="line">      manifest: <span class="built_in">require</span>(<span class="string">'./manifest.json'</span>),</div><div class="line">    &#125;),</div><div class="line">    <span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</div><div class="line">      filepath: resolve(__dirname, <span class="string">'src/assets/js/lib.js'</span>),</div><div class="line">      includeSourcemap: <span class="literal">false</span>,</div><div class="line">      hash: <span class="literal">true</span></div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是<code>DllPlugin</code>和<code>DllReferencePlugin</code>中的<code>context</code>必须保持一致。</p>
+<p>最后贴两张比较图进行比较:<br><img src="http://oco6fs57t.bkt.clouddn.com/20170926150641401034209.png" alt=""><br>图中的<code>lib.js</code>是公共部分提取出来的，在以后的打包不会在对这些模块进行打包，一定程度上也加快了打包速度，图中的其他几个<code>js</code>文件都是没有经过<code>uglifyjs</code>进行压缩的。</p>
+<h3 id="uglifyjs在打包的时候进行压缩"><a href="#uglifyjs在打包的时候进行压缩" class="headerlink" title="uglifyjs在打包的时候进行压缩"></a><code>uglifyjs</code>在打包的时候进行压缩</h3><p><code>webpack</code>在打包的时候可以指定<code>-p</code>参数，会调用<code>uglifyjs</code>进行压缩。但是在使用的过程中发现在压缩的时候报错显示有个箭头函数不正确，查了之后发现是<code>es6</code>的问题，因此，最后去掉了<code>-p</code>参数，改用在<code>webpack</code>的配置文件中新增插件实现。<br><img src="http://oco6fs57t.bkt.clouddn.com/20170926150641317546378.png" alt=""><br>这里使用的是<code>uglifyjs-webpack-plugin@1.0.0-beta.2</code>，是可以解决我那个问题的，相关配置如下<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  ...</div><div class="line">  plugin: [</div><div class="line">    <span class="keyword">new</span> UglifyJSPlugin(&#123;</div><div class="line">      exclude: <span class="regexp">/\.min\.js$/</span>,</div><div class="line">      parallel: &#123;</div><div class="line">        cache: <span class="literal">true</span>,</div><div class="line">        workers: os.cpus().length</div><div class="line">      &#125;,</div><div class="line">      uglifyOptions: &#123;</div><div class="line">        ecma: <span class="number">5</span>,</div><div class="line">        compress: &#123;</div><div class="line">          warnings: <span class="literal">false</span>,</div><div class="line">          drop_console: <span class="literal">true</span>,</div><div class="line">          drop_debugger: <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="javascript:history.go(-1)">返回</a></li>
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack打包时对公用部分进行提取"><span class="toc-number">1.</span> <span class="toc-text">webpack打包时对公用部分进行提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用webpack的dll插件提取公共部分"><span class="toc-number">1.1.</span> <span class="toc-text">使用webpack的dll插件提取公共部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uglifyjs在打包的时候进行压缩"><span class="toc-number">1.2.</span> <span class="toc-text">uglifyjs在打包的时候进行压缩</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://51liwd.cc/webpack中对公用部分进行提取.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://51liwd.cc/webpack中对公用部分进行提取.html&text=webpack打包时对公用部分进行提取"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://51liwd.cc/webpack中对公用部分进行提取.html&title=webpack打包时对公用部分进行提取"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://51liwd.cc/webpack中对公用部分进行提取.html&is_video=false&description=webpack打包时对公用部分进行提取"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=webpack打包时对公用部分进行提取&body=Check out this article: https://51liwd.cc/webpack中对公用部分进行提取.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://51liwd.cc/webpack中对公用部分进行提取.html&title=webpack打包时对公用部分进行提取"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://51liwd.cc/webpack中对公用部分进行提取.html&title=webpack打包时对公用部分进行提取"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://51liwd.cc/webpack中对公用部分进行提取.html&title=webpack打包时对公用部分进行提取"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://51liwd.cc/webpack中对公用部分进行提取.html&title=webpack打包时对公用部分进行提取"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://51liwd.cc/webpack中对公用部分进行提取.html&name=webpack打包时对公用部分进行提取&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Powered by liwd
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="http://github.com/baseli">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+

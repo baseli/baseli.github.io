@@ -16,7 +16,7 @@
 <meta property="og:description" content="LNMP环境搭建">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1fg7t8wtejaj31520rewj2.jpg">
-<meta property="og:updated_time" content="2017-08-03T04:36:25.000Z">
+<meta property="og:updated_time" content="2017-08-24T09:31:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP环境搭建">
 <meta name="twitter:description" content="LNMP环境搭建">
@@ -177,7 +177,7 @@
 <ol>
 <li>编译安装</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./configure --prefix=/opt/php \</div><div class="line">--enable-fpm \</div><div class="line">--with-libxml-dir \</div><div class="line">--with-openssl \</div><div class="line">--enable-mbstring \</div><div class="line">--with-mcrypt \</div><div class="line">--with-config-file-path=/etc/php \</div><div class="line">--enable-opcache \</div><div class="line">--with-zlib-dir \</div><div class="line">--with-pdo-mysql \</div><div class="line">--with-curl</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">./configure --prefix=/opt/php \</div><div class="line">--with-apxs2=/opt/httpd/bin/apxs \</div><div class="line">--with-libxml-dir \</div><div class="line">--with-openssl \</div><div class="line">--enable-mbstring \</div><div class="line">--with-mcrypt \</div><div class="line">--with-config-file-path=/etc/php \</div><div class="line">--enable-opcache \</div><div class="line">--with-zlib-dir \</div><div class="line">--with-pdo-mysql \</div><div class="line">--with-curl</div></pre></td></tr></table></figure>
 <ol>
 <li>开启<code>php-fpm</code></li>
 </ol>
