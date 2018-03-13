@@ -454,9 +454,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
-.highlight {
-  border: 1px dotted #666;
-}
 .content {
   flex: 1;
 }
@@ -651,7 +648,6 @@ body {
   }
 }
 #header-post {
-  min-width: 11rem;
   position: fixed;
   top: 2rem;
   right: 0;
@@ -716,7 +712,7 @@ body {
   color: #2bbc8a;
 }
 #header-post #menu {
-  visibility: auto;
+  visibility: hidden;
   margin-right: 2rem;
 }
 #header-post #nav {
@@ -991,22 +987,22 @@ body {
     display: none;
   }
 }
-#sociallinks {
+#socialinfo {
   display: inline-block;
   list-style: none;
   padding: 0;
   margin: 0;
 }
-#sociallinks li {
+#socialinfo li {
   display: inline-block;
 }
-#sociallinks li:after {
+#socialinfo li:after {
   content: ", ";
 }
-#sociallinks li:last-child:after {
+#socialinfo li:last-child:after {
   content: "";
 }
-#sociallinks li:nth-last-child(2):after {
+#socialinfo li:nth-last-child(2):after {
   content: " and ";
 }
 .post-list {
@@ -1157,17 +1153,14 @@ article .content .caption {
   font-size: 1.5em;
   line-height: 1.25;
 }
-.article-tag .tag-link:before,
-.view-times .tag-link:before {
+.article-tag .tag-link:before {
   content: "#";
 }
 @media (min-width: 480px) {
-  .article-tag,
-  .view-times {
+  .article-tag {
     display: inline;
   }
-  .article-tag:before,
-  .view-times:before {
+  .article-tag:before {
     content: "|";
   }
 }
@@ -1277,6 +1270,53 @@ article .content .caption {
 }
 .pagination a:hover:not(.active) {
   color: #eee;
+}
+.search-input {
+  width: 100%;
+  font-size: 1.2rem;
+  color: #1d1f21;
+  background-color: #eee;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  padding: 4px 7px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.search-input:focus {
+  border: solid 1px #2bbc8a;
+}
+#search-result ul.search-result-list {
+  list-style-type: none;
+  padding: 0px;
+}
+#search-result li {
+  margin: 2em auto;
+}
+#search-result a.search-result-title {
+  line-height: 1.2;
+  font-weight: bold;
+  color: #c9cacc;
+  text-transform: capitalize;
+  background-image: none;
+}
+#search-result p.search-result {
+  margin: 0.4em auto;
+  max-height: 13em;
+  overflow: hidden;
+  font-size: 0.8em;
+  text-align: justify;
+}
+#search-result em.search-keyword {
+  color: #d480aa;
+  border-bottom: 1px dashed #d480aa;
+  font-weight: bold;
+}
+.search-no-result {
+  display: none;
+  padding-bottom: 0.5em;
+  color: #c9cacc;
 }
 .highlight {
   color: #d1d9e1;
